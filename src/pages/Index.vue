@@ -1,13 +1,27 @@
 <template>
-  <div>
-    <SedHeader/>
-    <ViewSwitcher @viewType="switchView"/>
-    <Header/>
-    <Responsible :view-type="viewType"/>
-    <Summary :view-type="viewType"/>
-<!--    <LineChart class="highcharts-layout-fix" :data="linechartData" @period-changed="onPeriodChanged"/>-->
-    <indicator-list :view-type="viewType"/>
-  </div>
+  <SedHeader/>
+  <ViewSwitcher
+      :viewType="viewSwitcherOptions"
+      :view-switcher-options="viewSwitcherOptions"
+      @on-switch-view="onSwitchView"
+  />
+
+  <!-- Шапка -->
+  <Header/>
+  <!-- Шапка письма -->
+  <Responsible :view-type="viewSwitcherOptions"/>
+
+  <Summary :view-type="viewSwitcherOptions"/>
+
+  <!-- График -->
+  <LineChart
+      class="highcharts-layout-fix"
+      :data="linechartData"
+      @period-changed="onPeriodChanged"
+  />
+  <IndicatorList
+      :view-type="viewSwitcherOptions"
+  />
 </template>
 <script>
 import Header from "@/components/Header.vue";
@@ -33,6 +47,7 @@ export default defineComponent({
   },
   data () {
     return {
+      viewSwitcherOptions: 'simpleMail',
       viewType: 'simpleMail',
       linechartData: {
         "units": "млрд.руб",
@@ -1370,11 +1385,11 @@ export default defineComponent({
   },
   methods: {
     onPeriodChanged(period) {
-      this.period = isNaN(+period) ? period : +period;
+      // this.period = isNaN(+period) ? period : +period;
     },
-    switchView (value) {
-      console.log(1)
-      this.viewType = value
+    onSwitchView (value) {
+      console.log(3)
+      this.viewSwitcherOptions = value
     }
   }
 })
