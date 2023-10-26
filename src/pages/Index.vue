@@ -1,1383 +1,1392 @@
 <template>
-  <div>
-    <SedHeader/>
-    <ViewSwitcher @viewType="switchView"/>
-    <Header/>
-    <Responsible :view-type="viewType"/>
-    <Summary :view-type="viewType"/>
-<!--    <LineChart class="highcharts-layout-fix" :data="linechartData" @period-changed="onPeriodChanged"/>-->
-    <indicator-list :view-type="viewType"/>
-  </div>
+  <SedHeader/>
+  <ViewSwitcher
+      :viewType="viewType"
+      :view-switcher-options="viewSwitcherOptions"
+      @on-switch-view="onSwitchView"
+  />
+
+  <!-- Шапка -->
+  <Header/>
+  <!-- Шапка письма -->
+  <Responsible :view-type="viewType"/>
+
+  <Summary :view-type="viewType"/>
+
+  <!-- График -->
+  <LineChart
+      class="highcharts-layout-fix"
+      :data="linechartData"
+      @period-changed="onPeriodChanged"
+  />
+  <IndicatorList
+      :view-type="viewType"
+  />
 </template>
-<script>
+<script setup>
 import Header from "@/components/Header.vue";
 import Responsible from "@/components/Responsible.vue";
 import Summary from "@/components/Summary.vue";
-import {defineComponent} from 'vue'
 import LineChart from "@/components/LineChart.vue";
 import ComponentsStyles from '@/styles/linechart.styl'
 import IndicatorList from "@/components/IndicatorList.vue";
 import SedHeader from "@/components/SedHeader.vue";
 import ViewSwitcher from "@/components/ViewSwitcher.vue";
 
-export default defineComponent({
-  name: "Index",
-  components: {
-    ViewSwitcher,
-    SedHeader,
-    IndicatorList,
-    Header,
-    Responsible,
-    Summary,
-    LineChart
-  },
-  data () {
-    return {
-      viewType: 'simpleMail',
-      linechartData: {
-        "units": "млрд.руб",
-        "periods": [
-          {
-            "id": 2022,
-            "label": "2022",
-            "type": "monthly",
-            "line": "2023-10-25",
-            "data": [
-              {
-                "data": [],
-                "color": "#92A6B9",
-                "type": "area",
-                "zIndex": 1,
-                "stroke": true,
-                "dashStyle": "custom"
+const linechartData = {
+  "units": "млрд.руб",
+  "periods": [
+    {
+      "id": 2022,
+      "label": "2022",
+      "type": "monthly",
+      "line": "2023-10-25",
+      "data": [
+        {
+          "data": [],
+          "color": "#92A6B9",
+          "type": "area",
+          "zIndex": 1,
+          "stroke": true,
+          "dashStyle": "custom"
+        },
+        {
+          "data": [
+            {
+              "x": 1640984400000,
+              "y": 702.67,
+              "date": "2022-01-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1643662800000,
+              "y": 1405.33,
+              "date": "2022-02-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1646082000000,
+              "y": 2108,
+              "date": "2022-03-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1648760400000,
+              "y": 2810.67,
+              "date": "2022-04-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1651352400000,
+              "y": 3513.33,
+              "date": "2022-05-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1654030800000,
+              "y": 4216,
+              "date": "2022-06-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1656622800000,
+              "y": 4918.67,
+              "date": "2022-07-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1659301200000,
+              "y": 5621.33,
+              "date": "2022-08-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1661979600000,
+              "y": 6324,
+              "date": "2022-09-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1664571600000,
+              "y": 9100,
+              "date": "2022-10-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1667250000000,
+              "y": 8531,
+              "date": "2022-11-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1669842000000,
+              "y": 8432,
+              "date": "2022-12-01",
+              "dataLabels": {}
+            }
+          ],
+          "color": "#585F70",
+          "type": "area",
+          "zIndex": 1
+        },
+        {
+          "data": [
+            {
+              "x": 1640984400000,
+              "y": null,
+              "date": "2022-01-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1640984400000,
-                    "y": 702.67,
-                    "date": "2022-01-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1643662800000,
-                    "y": 1405.33,
-                    "date": "2022-02-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1646082000000,
-                    "y": 2108,
-                    "date": "2022-03-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1648760400000,
-                    "y": 2810.67,
-                    "date": "2022-04-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1651352400000,
-                    "y": 3513.33,
-                    "date": "2022-05-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1654030800000,
-                    "y": 4216,
-                    "date": "2022-06-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1656622800000,
-                    "y": 4918.67,
-                    "date": "2022-07-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1659301200000,
-                    "y": 5621.33,
-                    "date": "2022-08-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1661979600000,
-                    "y": 6324,
-                    "date": "2022-09-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1664571600000,
-                    "y": 9100,
-                    "date": "2022-10-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1667250000000,
-                    "y": 8531,
-                    "date": "2022-11-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1669842000000,
-                    "y": 8432,
-                    "date": "2022-12-01",
-                    "dataLabels": {}
-                  }
-                ],
-                "color": "#585F70",
-                "type": "area",
-                "zIndex": 1
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1640984400000,
-                    "y": null,
-                    "date": "2022-01-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1643662800000,
-                    "y": null,
-                    "date": "2022-02-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1646082000000,
-                    "y": null,
-                    "date": "2022-03-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1648760400000,
-                    "y": null,
-                    "date": "2022-04-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1651352400000,
-                    "y": null,
-                    "date": "2022-05-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1654030800000,
-                    "y": null,
-                    "date": "2022-06-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1656622800000,
-                    "y": null,
-                    "date": "2022-07-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1659301200000,
-                    "y": null,
-                    "date": "2022-08-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1661979600000,
-                    "y": null,
-                    "date": "2022-09-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1664571600000,
-                    "y": 9144,
-                    "date": "2022-10-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1667250000000,
-                    "y": 9120,
-                    "date": "2022-11-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1669842000000,
-                    "y": 9143,
-                    "date": "2022-12-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  }
-                ],
-                "color": "#22db67",
-                "stroke": true,
-                "type": "area",
-                "zIndex": 2
-              }
-            ]
-          },
-          {
-            "id": "currentPeriod",
-            "label": "Текущий период",
-            "type": "monthly",
-            "line": "2023-10-25",
-            "data": [
-              {
-                "data": [],
-                "color": "#92A6B9",
-                "type": "area",
-                "zIndex": 1,
-                "stroke": true,
-                "dashStyle": "custom"
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1643662800000,
+              "y": null,
+              "date": "2022-02-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1664571600000,
-                    "y": 9100,
-                    "date": "2022-10-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1667250000000,
-                    "y": 8531,
-                    "date": "2022-11-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1669842000000,
-                    "y": 8432,
-                    "date": "2022-12-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1672520400000,
-                    "y": 8992,
-                    "date": "2023-01-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1675198800000,
-                    "y": 9531,
-                    "date": "2023-02-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1677618000000,
-                    "y": 8907,
-                    "date": "2023-03-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1680296400000,
-                    "y": 10518,
-                    "date": "2023-04-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1682888400000,
-                    "y": 11338,
-                    "date": "2023-05-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1685566800000,
-                    "y": 10863,
-                    "date": "2023-06-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1688158800000,
-                    "y": 10724,
-                    "date": "2023-07-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1690837200000,
-                    "y": 9100,
-                    "date": "2023-08-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1693515600000,
-                    "y": 8933,
-                    "date": "2023-09-01",
-                    "dataLabels": {}
-                  }
-                ],
-                "color": "#585F70",
-                "type": "area",
-                "zIndex": 1
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1664571600000,
-                    "y": 9144,
-                    "date": "2022-10-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1667250000000,
-                    "y": 9120,
-                    "date": "2022-11-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1669842000000,
-                    "y": 9143,
-                    "date": "2022-12-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1672520400000,
-                    "y": 8997,
-                    "date": "2023-01-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1675198800000,
-                    "y": 9539,
-                    "date": "2023-02-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1677618000000,
-                    "y": 8807,
-                    "date": "2023-03-01",
-                    "dataLabels": {
-                      "color": "#22db67"
-                    },
-                    "marker": {
-                      "lineColor": "#22db67"
-                    },
-                    "zones": "#22db67",
-                    "comment": null
-                  },
-                  {
-                    "x": 1680296400000,
-                    "y": 10418,
-                    "date": "2023-04-01",
-                    "dataLabels": {
-                      "color": "#22db67"
-                    },
-                    "marker": {
-                      "lineColor": "#22db67"
-                    },
-                    "zones": "#22db67",
-                    "comment": null
-                  },
-                  {
-                    "x": 1682888400000,
-                    "y": 11344,
-                    "date": "2023-05-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1685566800000,
-                    "y": 11710,
-                    "date": "2023-06-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1688158800000,
-                    "y": 13760,
-                    "date": "2023-07-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1690837200000,
-                    "y": null,
-                    "date": "2023-08-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1693515600000,
-                    "y": null,
-                    "date": "2023-09-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  }
-                ],
-                "color": "#22db67",
-                "stroke": true,
-                "type": "area",
-                "zIndex": 2
-              }
-            ]
-          },
-          {
-            "id": 2023,
-            "label": "2023",
-            "type": "monthly",
-            "line": "2023-10-25",
-            "data": [
-              {
-                "data": [],
-                "color": "#92A6B9",
-                "type": "area",
-                "zIndex": 1,
-                "stroke": true,
-                "dashStyle": "custom"
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1646082000000,
+              "y": null,
+              "date": "2022-03-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1672520400000,
-                    "y": 8992,
-                    "date": "2023-01-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1675198800000,
-                    "y": 9531,
-                    "date": "2023-02-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1677618000000,
-                    "y": 8907,
-                    "date": "2023-03-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1680296400000,
-                    "y": 10518,
-                    "date": "2023-04-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1682888400000,
-                    "y": 11338,
-                    "date": "2023-05-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1685566800000,
-                    "y": 10863,
-                    "date": "2023-06-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1688158800000,
-                    "y": 10724,
-                    "date": "2023-07-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1690837200000,
-                    "y": 9100,
-                    "date": "2023-08-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1693515600000,
-                    "y": 8933,
-                    "date": "2023-09-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1696107600000,
-                    "y": 8988.67,
-                    "date": "2023-10-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1698786000000,
-                    "y": 9044.33,
-                    "date": "2023-11-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1701378000000,
-                    "y": 9100,
-                    "date": "2023-12-01",
-                    "dataLabels": {}
-                  }
-                ],
-                "color": "#585F70",
-                "type": "area",
-                "zIndex": 1
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1672520400000,
-                    "y": 8997,
-                    "date": "2023-01-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1675198800000,
-                    "y": 9539,
-                    "date": "2023-02-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1677618000000,
-                    "y": 8807,
-                    "date": "2023-03-01",
-                    "dataLabels": {
-                      "color": "#22db67"
-                    },
-                    "marker": {
-                      "lineColor": "#22db67"
-                    },
-                    "zones": "#22db67",
-                    "comment": null
-                  },
-                  {
-                    "x": 1680296400000,
-                    "y": 10418,
-                    "date": "2023-04-01",
-                    "dataLabels": {
-                      "color": "#22db67"
-                    },
-                    "marker": {
-                      "lineColor": "#22db67"
-                    },
-                    "zones": "#22db67",
-                    "comment": null
-                  },
-                  {
-                    "x": 1682888400000,
-                    "y": 11344,
-                    "date": "2023-05-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1685566800000,
-                    "y": 11710,
-                    "date": "2023-06-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1688158800000,
-                    "y": 13760,
-                    "date": "2023-07-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1690837200000,
-                    "y": null,
-                    "date": "2023-08-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1693515600000,
-                    "y": null,
-                    "date": "2023-09-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1696107600000,
-                    "y": null,
-                    "date": "2023-10-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1698786000000,
-                    "y": null,
-                    "date": "2023-11-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1701378000000,
-                    "y": null,
-                    "date": "2023-12-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  }
-                ],
-                "color": "#22db67",
-                "stroke": true,
-                "type": "area",
-                "zIndex": 2
-              }
-            ]
-          },
-          {
-            "id": "allTime",
-            "label": "За все время",
-            "type": "yearly",
-            "line": "2023-10-25",
-            "data": [
-              {
-                "data": [],
-                "color": "#92A6B9",
-                "type": "area",
-                "zIndex": 1,
-                "stroke": true,
-                "dashStyle": "custom"
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1648760400000,
+              "y": null,
+              "date": "2022-04-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1669842000000,
-                    "y": 8432,
-                    "date": "2022-12-01",
-                    "dataLabels": {}
-                  },
-                  {
-                    "x": 1701378000000,
-                    "y": 9100,
-                    "date": "2023-12-01",
-                    "dataLabels": {}
-                  }
-                ],
-                "color": "#585F70",
-                "type": "area",
-                "zIndex": 1
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "data": [
-                  {
-                    "x": 1669842000000,
-                    "y": 9143,
-                    "date": "2022-12-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  },
-                  {
-                    "x": 1701378000000,
-                    "y": null,
-                    "date": "2023-12-01",
-                    "dataLabels": {
-                      "color": "#FF526C"
-                    },
-                    "marker": {
-                      "lineColor": "#FF526C"
-                    },
-                    "zones": "#FF526C",
-                    "comment": null
-                  }
-                ],
-                "color": "#22db67",
-                "stroke": true,
-                "type": "area",
-                "zIndex": 2
-              }
-            ]
-          }
-        ],
-        "data": [
-          {
-            "data": [],
-            "color": "#92A6B9",
-            "dashStyle": "custom",
-            "stroke": true,
-            "type": "area",
-            "zIndex": 1
-          },
-          {
-            "data": [
-              {
-                "x": 1640984400000,
-                "y": 702.67,
-                "date": "2022-01-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1651352400000,
+              "y": null,
+              "date": "2022-05-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1643662800000,
-                "y": 1405.33,
-                "date": "2022-02-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1646082000000,
-                "y": 2108,
-                "date": "2022-03-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1654030800000,
+              "y": null,
+              "date": "2022-06-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1648760400000,
-                "y": 2810.67,
-                "date": "2022-04-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1651352400000,
-                "y": 3513.33,
-                "date": "2022-05-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1656622800000,
+              "y": null,
+              "date": "2022-07-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1654030800000,
-                "y": 4216,
-                "date": "2022-06-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1656622800000,
-                "y": 4918.67,
-                "date": "2022-07-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1659301200000,
+              "y": null,
+              "date": "2022-08-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1659301200000,
-                "y": 5621.33,
-                "date": "2022-08-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1661979600000,
-                "y": 6324,
-                "date": "2022-09-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1661979600000,
+              "y": null,
+              "date": "2022-09-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1664571600000,
-                "y": 9100,
-                "date": "2022-10-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1667250000000,
-                "y": 8531,
-                "date": "2022-11-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1664571600000,
+              "y": 9144,
+              "date": "2022-10-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1669842000000,
-                "y": 8432,
-                "date": "2022-12-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1672520400000,
-                "y": 8992,
-                "date": "2023-01-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1667250000000,
+              "y": 9120,
+              "date": "2022-11-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1675198800000,
-                "y": 9531,
-                "date": "2023-02-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1677618000000,
-                "y": 8907,
-                "date": "2023-03-01",
-                "dataLabels": {}
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1669842000000,
+              "y": 9143,
+              "date": "2022-12-01",
+              "dataLabels": {
+                "color": "#FF526C"
               },
-              {
-                "x": 1680296400000,
-                "y": 10518,
-                "date": "2023-04-01",
-                "dataLabels": {}
+              "marker": {
+                "lineColor": "#FF526C"
               },
-              {
-                "x": 1682888400000,
-                "y": 11338,
-                "date": "2023-05-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1685566800000,
-                "y": 10863,
-                "date": "2023-06-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1688158800000,
-                "y": 10724,
-                "date": "2023-07-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1690837200000,
-                "y": 9100,
-                "date": "2023-08-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1693515600000,
-                "y": 8933,
-                "date": "2023-09-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1696107600000,
-                "y": 8988.67,
-                "date": "2023-10-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1698786000000,
-                "y": 9044.33,
-                "date": "2023-11-01",
-                "dataLabels": {}
-              },
-              {
-                "x": 1701378000000,
-                "y": 9100,
-                "date": "2023-12-01",
-                "dataLabels": {}
-              }
-            ],
-            "color": "#585F70",
-            "type": "area",
-            "zIndex": 1
-          },
-          {
-            "data": [
-              {
-                "x": 1640984400000,
-                "y": null,
-                "date": "2022-01-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1643662800000,
-                "y": null,
-                "date": "2022-02-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1646082000000,
-                "y": null,
-                "date": "2022-03-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1648760400000,
-                "y": null,
-                "date": "2022-04-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1651352400000,
-                "y": null,
-                "date": "2022-05-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1654030800000,
-                "y": null,
-                "date": "2022-06-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1656622800000,
-                "y": null,
-                "date": "2022-07-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1659301200000,
-                "y": null,
-                "date": "2022-08-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1661979600000,
-                "y": null,
-                "date": "2022-09-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1664571600000,
-                "y": 9144,
-                "date": "2022-10-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1667250000000,
-                "y": 9120,
-                "date": "2022-11-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1669842000000,
-                "y": 9143,
-                "date": "2022-12-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1672520400000,
-                "y": 8997,
-                "date": "2023-01-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1675198800000,
-                "y": 9539,
-                "date": "2023-02-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1677618000000,
-                "y": 8807,
-                "date": "2023-03-01",
-                "dataLabels": {
-                  "color": "#22db67"
-                },
-                "marker": {
-                  "lineColor": "#22db67"
-                },
-                "zones": "#22db67",
-                "comment": null
-              },
-              {
-                "x": 1680296400000,
-                "y": 10418,
-                "date": "2023-04-01",
-                "dataLabels": {
-                  "color": "#22db67"
-                },
-                "marker": {
-                  "lineColor": "#22db67"
-                },
-                "zones": "#22db67",
-                "comment": null
-              },
-              {
-                "x": 1682888400000,
-                "y": 11344,
-                "date": "2023-05-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1685566800000,
-                "y": 11710,
-                "date": "2023-06-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1688158800000,
-                "y": 13760,
-                "date": "2023-07-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1690837200000,
-                "y": null,
-                "date": "2023-08-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1693515600000,
-                "y": null,
-                "date": "2023-09-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1696107600000,
-                "y": null,
-                "date": "2023-10-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1698786000000,
-                "y": null,
-                "date": "2023-11-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              },
-              {
-                "x": 1701378000000,
-                "y": null,
-                "date": "2023-12-01",
-                "dataLabels": {
-                  "color": "#FF526C"
-                },
-                "marker": {
-                  "lineColor": "#FF526C"
-                },
-                "zones": "#FF526C",
-                "comment": null
-              }
-            ],
-            "color": "#22db67",
-            "stroke": true,
-            "type": "area",
-            "zIndex": 2
-          }
-        ]
-      }
-    }
-  },
-  methods: {
-    onPeriodChanged(period) {
-      this.period = isNaN(+period) ? period : +period;
+              "zones": "#FF526C",
+              "comment": null
+            }
+          ],
+          "color": "#22db67",
+          "stroke": true,
+          "type": "area",
+          "zIndex": 2
+        }
+      ]
     },
-    switchView (value) {
-      console.log(1)
-      this.viewType = value
+    {
+      "id": "currentPeriod",
+      "label": "Текущий период",
+      "type": "monthly",
+      "line": "2023-10-25",
+      "data": [
+        {
+          "data": [],
+          "color": "#92A6B9",
+          "type": "area",
+          "zIndex": 1,
+          "stroke": true,
+          "dashStyle": "custom"
+        },
+        {
+          "data": [
+            {
+              "x": 1664571600000,
+              "y": 9100,
+              "date": "2022-10-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1667250000000,
+              "y": 8531,
+              "date": "2022-11-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1669842000000,
+              "y": 8432,
+              "date": "2022-12-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1672520400000,
+              "y": 8992,
+              "date": "2023-01-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1675198800000,
+              "y": 9531,
+              "date": "2023-02-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1677618000000,
+              "y": 8907,
+              "date": "2023-03-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1680296400000,
+              "y": 10518,
+              "date": "2023-04-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1682888400000,
+              "y": 11338,
+              "date": "2023-05-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1685566800000,
+              "y": 10863,
+              "date": "2023-06-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1688158800000,
+              "y": 10724,
+              "date": "2023-07-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1690837200000,
+              "y": 9100,
+              "date": "2023-08-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1693515600000,
+              "y": 8933,
+              "date": "2023-09-01",
+              "dataLabels": {}
+            }
+          ],
+          "color": "#585F70",
+          "type": "area",
+          "zIndex": 1
+        },
+        {
+          "data": [
+            {
+              "x": 1664571600000,
+              "y": 9144,
+              "date": "2022-10-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1667250000000,
+              "y": 9120,
+              "date": "2022-11-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1669842000000,
+              "y": 9143,
+              "date": "2022-12-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1672520400000,
+              "y": 8997,
+              "date": "2023-01-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1675198800000,
+              "y": 9539,
+              "date": "2023-02-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1677618000000,
+              "y": 8807,
+              "date": "2023-03-01",
+              "dataLabels": {
+                "color": "#22db67"
+              },
+              "marker": {
+                "lineColor": "#22db67"
+              },
+              "zones": "#22db67",
+              "comment": null
+            },
+            {
+              "x": 1680296400000,
+              "y": 10418,
+              "date": "2023-04-01",
+              "dataLabels": {
+                "color": "#22db67"
+              },
+              "marker": {
+                "lineColor": "#22db67"
+              },
+              "zones": "#22db67",
+              "comment": null
+            },
+            {
+              "x": 1682888400000,
+              "y": 11344,
+              "date": "2023-05-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1685566800000,
+              "y": 11710,
+              "date": "2023-06-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1688158800000,
+              "y": 13760,
+              "date": "2023-07-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1690837200000,
+              "y": null,
+              "date": "2023-08-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1693515600000,
+              "y": null,
+              "date": "2023-09-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            }
+          ],
+          "color": "#22db67",
+          "stroke": true,
+          "type": "area",
+          "zIndex": 2
+        }
+      ]
+    },
+    {
+      "id": 2023,
+      "label": "2023",
+      "type": "monthly",
+      "line": "2023-10-25",
+      "data": [
+        {
+          "data": [],
+          "color": "#92A6B9",
+          "type": "area",
+          "zIndex": 1,
+          "stroke": true,
+          "dashStyle": "custom"
+        },
+        {
+          "data": [
+            {
+              "x": 1672520400000,
+              "y": 8992,
+              "date": "2023-01-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1675198800000,
+              "y": 9531,
+              "date": "2023-02-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1677618000000,
+              "y": 8907,
+              "date": "2023-03-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1680296400000,
+              "y": 10518,
+              "date": "2023-04-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1682888400000,
+              "y": 11338,
+              "date": "2023-05-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1685566800000,
+              "y": 10863,
+              "date": "2023-06-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1688158800000,
+              "y": 10724,
+              "date": "2023-07-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1690837200000,
+              "y": 9100,
+              "date": "2023-08-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1693515600000,
+              "y": 8933,
+              "date": "2023-09-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1696107600000,
+              "y": 8988.67,
+              "date": "2023-10-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1698786000000,
+              "y": 9044.33,
+              "date": "2023-11-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1701378000000,
+              "y": 9100,
+              "date": "2023-12-01",
+              "dataLabels": {}
+            }
+          ],
+          "color": "#585F70",
+          "type": "area",
+          "zIndex": 1
+        },
+        {
+          "data": [
+            {
+              "x": 1672520400000,
+              "y": 8997,
+              "date": "2023-01-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1675198800000,
+              "y": 9539,
+              "date": "2023-02-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1677618000000,
+              "y": 8807,
+              "date": "2023-03-01",
+              "dataLabels": {
+                "color": "#22db67"
+              },
+              "marker": {
+                "lineColor": "#22db67"
+              },
+              "zones": "#22db67",
+              "comment": null
+            },
+            {
+              "x": 1680296400000,
+              "y": 10418,
+              "date": "2023-04-01",
+              "dataLabels": {
+                "color": "#22db67"
+              },
+              "marker": {
+                "lineColor": "#22db67"
+              },
+              "zones": "#22db67",
+              "comment": null
+            },
+            {
+              "x": 1682888400000,
+              "y": 11344,
+              "date": "2023-05-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1685566800000,
+              "y": 11710,
+              "date": "2023-06-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1688158800000,
+              "y": 13760,
+              "date": "2023-07-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1690837200000,
+              "y": null,
+              "date": "2023-08-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1693515600000,
+              "y": null,
+              "date": "2023-09-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1696107600000,
+              "y": null,
+              "date": "2023-10-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1698786000000,
+              "y": null,
+              "date": "2023-11-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1701378000000,
+              "y": null,
+              "date": "2023-12-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            }
+          ],
+          "color": "#22db67",
+          "stroke": true,
+          "type": "area",
+          "zIndex": 2
+        }
+      ]
+    },
+    {
+      "id": "allTime",
+      "label": "За все время",
+      "type": "yearly",
+      "line": "2023-10-25",
+      "data": [
+        {
+          "data": [],
+          "color": "#92A6B9",
+          "type": "area",
+          "zIndex": 1,
+          "stroke": true,
+          "dashStyle": "custom"
+        },
+        {
+          "data": [
+            {
+              "x": 1669842000000,
+              "y": 8432,
+              "date": "2022-12-01",
+              "dataLabels": {}
+            },
+            {
+              "x": 1701378000000,
+              "y": 9100,
+              "date": "2023-12-01",
+              "dataLabels": {}
+            }
+          ],
+          "color": "#585F70",
+          "type": "area",
+          "zIndex": 1
+        },
+        {
+          "data": [
+            {
+              "x": 1669842000000,
+              "y": 9143,
+              "date": "2022-12-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            },
+            {
+              "x": 1701378000000,
+              "y": null,
+              "date": "2023-12-01",
+              "dataLabels": {
+                "color": "#FF526C"
+              },
+              "marker": {
+                "lineColor": "#FF526C"
+              },
+              "zones": "#FF526C",
+              "comment": null
+            }
+          ],
+          "color": "#22db67",
+          "stroke": true,
+          "type": "area",
+          "zIndex": 2
+        }
+      ]
     }
+  ],
+  "data": [
+    {
+      "data": [],
+      "color": "#92A6B9",
+      "dashStyle": "custom",
+      "stroke": true,
+      "type": "area",
+      "zIndex": 1
+    },
+    {
+      "data": [
+        {
+          "x": 1640984400000,
+          "y": 702.67,
+          "date": "2022-01-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1643662800000,
+          "y": 1405.33,
+          "date": "2022-02-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1646082000000,
+          "y": 2108,
+          "date": "2022-03-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1648760400000,
+          "y": 2810.67,
+          "date": "2022-04-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1651352400000,
+          "y": 3513.33,
+          "date": "2022-05-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1654030800000,
+          "y": 4216,
+          "date": "2022-06-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1656622800000,
+          "y": 4918.67,
+          "date": "2022-07-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1659301200000,
+          "y": 5621.33,
+          "date": "2022-08-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1661979600000,
+          "y": 6324,
+          "date": "2022-09-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1664571600000,
+          "y": 9100,
+          "date": "2022-10-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1667250000000,
+          "y": 8531,
+          "date": "2022-11-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1669842000000,
+          "y": 8432,
+          "date": "2022-12-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1672520400000,
+          "y": 8992,
+          "date": "2023-01-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1675198800000,
+          "y": 9531,
+          "date": "2023-02-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1677618000000,
+          "y": 8907,
+          "date": "2023-03-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1680296400000,
+          "y": 10518,
+          "date": "2023-04-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1682888400000,
+          "y": 11338,
+          "date": "2023-05-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1685566800000,
+          "y": 10863,
+          "date": "2023-06-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1688158800000,
+          "y": 10724,
+          "date": "2023-07-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1690837200000,
+          "y": 9100,
+          "date": "2023-08-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1693515600000,
+          "y": 8933,
+          "date": "2023-09-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1696107600000,
+          "y": 8988.67,
+          "date": "2023-10-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1698786000000,
+          "y": 9044.33,
+          "date": "2023-11-01",
+          "dataLabels": {}
+        },
+        {
+          "x": 1701378000000,
+          "y": 9100,
+          "date": "2023-12-01",
+          "dataLabels": {}
+        }
+      ],
+      "color": "#585F70",
+      "type": "area",
+      "zIndex": 1
+    },
+    {
+      "data": [
+        {
+          "x": 1640984400000,
+          "y": null,
+          "date": "2022-01-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1643662800000,
+          "y": null,
+          "date": "2022-02-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1646082000000,
+          "y": null,
+          "date": "2022-03-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1648760400000,
+          "y": null,
+          "date": "2022-04-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1651352400000,
+          "y": null,
+          "date": "2022-05-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1654030800000,
+          "y": null,
+          "date": "2022-06-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1656622800000,
+          "y": null,
+          "date": "2022-07-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1659301200000,
+          "y": null,
+          "date": "2022-08-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1661979600000,
+          "y": null,
+          "date": "2022-09-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1664571600000,
+          "y": 9144,
+          "date": "2022-10-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1667250000000,
+          "y": 9120,
+          "date": "2022-11-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1669842000000,
+          "y": 9143,
+          "date": "2022-12-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1672520400000,
+          "y": 8997,
+          "date": "2023-01-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1675198800000,
+          "y": 9539,
+          "date": "2023-02-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1677618000000,
+          "y": 8807,
+          "date": "2023-03-01",
+          "dataLabels": {
+            "color": "#22db67"
+          },
+          "marker": {
+            "lineColor": "#22db67"
+          },
+          "zones": "#22db67",
+          "comment": null
+        },
+        {
+          "x": 1680296400000,
+          "y": 10418,
+          "date": "2023-04-01",
+          "dataLabels": {
+            "color": "#22db67"
+          },
+          "marker": {
+            "lineColor": "#22db67"
+          },
+          "zones": "#22db67",
+          "comment": null
+        },
+        {
+          "x": 1682888400000,
+          "y": 11344,
+          "date": "2023-05-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1685566800000,
+          "y": 11710,
+          "date": "2023-06-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1688158800000,
+          "y": 13760,
+          "date": "2023-07-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1690837200000,
+          "y": null,
+          "date": "2023-08-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1693515600000,
+          "y": null,
+          "date": "2023-09-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1696107600000,
+          "y": null,
+          "date": "2023-10-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1698786000000,
+          "y": null,
+          "date": "2023-11-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        },
+        {
+          "x": 1701378000000,
+          "y": null,
+          "date": "2023-12-01",
+          "dataLabels": {
+            "color": "#FF526C"
+          },
+          "marker": {
+            "lineColor": "#FF526C"
+          },
+          "zones": "#FF526C",
+          "comment": null
+        }
+      ],
+      "color": "#22db67",
+      "stroke": true,
+      "type": "area",
+      "zIndex": 2
+    }
+  ]
+}
+
+import {ref} from 'vue'
+
+const viewSwitcherOptions = ref([
+  {
+    name: 'Письмо',
+    type: 'simpleMail'
+  },
+  {
+    name: 'Адаптивное письмо',
+    type: 'adaptiveMail'
   }
-})
+])
+const viewType = ref('simpleMail')
+
+const onPeriodChanged = (period) => {
+  // this.period = isNaN(+period) ? period : +period;
+}
+const onSwitchView = (value) => {
+  console.log(2)
+  viewType.value = value
+}
 </script>
 
 <style scoped lang="sass">
@@ -1475,7 +1484,7 @@ export default defineComponent({
 .indicator__title
   color: #000
   font-feature-settings: 'clig' off, 'liga' off
-  font-family: SF Pro,sans-serif
+  font-family: SF Pro, sans-serif
   font-size: 17px
   font-style: normal
   font-weight: 590
@@ -1485,7 +1494,7 @@ export default defineComponent({
 .indicator__unit
   color: #92A6B9
   font-feature-settings: 'clig' off, 'liga' off
-  font-family: SF Pro,sans-serif
+  font-family: SF Pro, sans-serif
   font-size: 13px
   font-style: normal
   font-weight: normal
@@ -1522,6 +1531,7 @@ export default defineComponent({
   justify-content: flex-end
   padding-bottom: 80px
   padding-right: 80px
+
   &__text
     color: #2C2D2E
     font-family: SF Pro Text, sans-serif
