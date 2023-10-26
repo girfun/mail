@@ -1,13 +1,8 @@
 const routes = [
     {
         path: '/',
-        name: 'main',
+        name: '',
         component: () => import('@/pages/Index')
-    },
-    {
-        path: '/indicator',
-        name: 'indicator',
-        component: () => import('@/pages/Indicator')
     }
 ]
 export default routes
