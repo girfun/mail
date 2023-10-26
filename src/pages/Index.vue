@@ -1,7 +1,7 @@
 <template>
   <SedHeader/>
   <ViewSwitcher
-      :viewType="viewSwitcherOptions"
+      :view-type="viewSwitcherOptions"
       :view-switcher-options="viewSwitcherOptions"
       @on-switch-view="onSwitchView"
   />
