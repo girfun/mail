@@ -1373,6 +1373,7 @@ export default defineComponent({
       this.period = isNaN(+period) ? period : +period;
     },
     switchView (value) {
+      console.log(1)
       this.viewType = value
     }
   }
