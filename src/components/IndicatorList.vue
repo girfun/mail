@@ -364,14 +364,14 @@ export default defineComponent({
   @media screen and (max-width: 576px)
     border-radius: 0 5px 5px 5px
     gap: 4px
-    padding: 8px 4px 4px 4px
+    padding: 4px
     box-shadow: 0 13px 13px 0 rgba(0, 0, 0, 0.20)
 .indicator
   &__list
     &-position
       padding: 0 115px
       @media screen and (max-width: 576px)
-        padding: 0 30px
+        padding: 0 38px
 .adaptive
   &_switchers
     font-size: 9.8px

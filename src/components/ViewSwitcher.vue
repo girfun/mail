@@ -2,36 +2,46 @@
   <div class="view-switcher__position">
     <div class="view-switcher">
       <div
-          v-for="option in viewSwitcherOptions"
-          :key="option.type"
-          :class="['switcher-item', {'active': viewType === option.type}]"
-          @click="onSwitchView(option)"
+          v-for="item in views"
+          :key="item.id"
+          class="switcher-item"
+          :class="{'active': activeView === item.value}"
+          @click="switchView(item.value)"
       >
-        {{ option.name }}
+        {{ item.name }}
       </div>
     </div>
   </div>
 </template>
-<script setup>
+<script>
+import {defineComponent} from 'vue'
 
-defineProps({
-  viewSwitcherOptions: {
-    type: Object,
-    default: () => {},
+export default defineComponent({
+  name: "ViewSwitcher",
+  data () {
+    return {
+      activeView: 'simpleMail',
+      views: [
+        {
+          id: 0,
+          name: 'Письмо',
+          value: 'simpleMail'
+        },
+        {
+          id: 1,
+          name: 'Адаптивное письмо',
+          value: 'adaptiveMail'
+        }
+      ],
+    }
   },
-  viewType: {
-    type: String,
-    default: 'simpleMail',
-  },
+  methods: {
+    switchView (value) {
+      this.activeView = value
+      this.$emit('viewType', this.activeView)
+    }
+  }
 })
-
-const emit = defineEmits(['on-switch-view'])
-
-
-const onSwitchView = ({type}) => {
-  emit('on-switch-view', type)
-}
-
 </script>
 
 <style scoped lang="sass">
@@ -42,11 +52,9 @@ const onSwitchView = ({type}) => {
   background: #e9e9ec
   width: fit-content
   border-radius: 8px
-
   &__position
     display: flex
     justify-content: center
-
 .switcher-item
   font-family: Gotham Pro, sans-serif
   font-weight: 500
@@ -55,7 +63,6 @@ const onSwitchView = ({type}) => {
   background: #e9e9ec
   color: #2b3949
   border-radius: 8px
-
 .active
   background: #2b3949
   color: white

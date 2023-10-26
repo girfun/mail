@@ -138,13 +138,12 @@ export default defineComponent({
     padding-bottom: 11px
 .adaptive
   &_graph-title
-    font-size: 14px !important
-    padding-bottom: 16px
+    font-size: 10px !important
   &_label
-    font-size: 13px !important
+    font-size: 9px !important
     line-height: 11.25px !important
   &_value
-    font-size: 14px !important
+    font-size: 10px !important
     line-height: 12px !important
   &_icon
     width: 12px

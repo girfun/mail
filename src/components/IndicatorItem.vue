@@ -1,9 +1,5 @@
 <template>
-  <div 
-      class="indicator"
-      :class="'color_' + indicatorData.color_type"
-      @click="onClickHandler"
-  >
+  <div class="indicator" :class="'color_' + indicatorData.color_type">
     <div class="indicator__title" :class="{'adaptive_indicator-title': viewType === 'adaptiveMail'}">{{ indicatorData.title }}</div>
     <div class="indicator__values">
       <div class="values_row plan" :class="{'adaptive_plan': viewType === 'adaptiveMail'}">
@@ -17,7 +13,6 @@
 </template>
 <script>
 import {defineComponent} from 'vue'
-import router from "@/router";
 
 export default defineComponent({
   name: "IndicatorItem",
@@ -27,12 +22,6 @@ export default defineComponent({
     },
     viewType: {
       type: String
-    }
-  },
-  methods: {
-    onClickHandler () {
-      console.log('1')
-      router.push({ path: '/indicator' })
     }
   }
 })
@@ -121,16 +110,16 @@ export default defineComponent({
     background: #FF9383
 .adaptive
   &_indicator-title
-    font-size: 13.3px
+    font-size: 10.3px
     line-height: 13px
   &_plan
-    font-size: 13px
+    font-size: 9px
     line-height: 11.25px
     span
-      font-size: 14.3px
+      font-size: 10.3px
   &_fact
-    font-size: 13px
+    font-size: 9px
     line-height: 11.25px
     span
-      font-size: 13.3px
+      font-size: 10.3px
 </style>

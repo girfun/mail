@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="info">
-      <div class="main-text" :class="{'adaptive-main-text--header': viewType === 'adaptiveMail'}" style="flex-basis: 35%">
+      <div class="main-text" :class="{'adaptive-main-text': viewType === 'adaptiveMail'}" style="flex-basis: 35%">
         Начальнику управления экономики, финансов и распоряжению государственным имуществом
         <div class="responsible__padding">Гайнутдинову Р.В.</div>
       </div>
@@ -82,10 +82,9 @@ export default defineComponent({
       padding-top: 7px
 .adaptive
   &-main-text
-    font-size: 15px
+    font-size: 11px
     line-height: 14.6px
   &-minister-text
-    font-size: 15px
+    font-size: 11px
     line-height: 17px
-    
 </style>
