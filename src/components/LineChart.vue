@@ -53,7 +53,7 @@ import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 import moment from '@/helpers/moment';
 
-Highcharts.wrap(Highcharts.SVGElement.prototype, 'dashstyleSetter', async function (proceed) {
+Highcharts.wrap(Highcharts.SVGElement.prototype, 'dashstyleSetter', function (proceed) {
   let value = arguments[1];
   let i;
 
@@ -109,7 +109,7 @@ export default {
     periods: [],
     options: {
       chart: {
-        margisnTop: '10',
+        marginTop: '10',
         marginLeft: '30',
         marginRight: '30',
         style: {
